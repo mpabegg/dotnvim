@@ -4,3 +4,5 @@ vim.pack.add({
 
 require'mini.trailspace'.setup()
 require'mini.splitjoin'.setup()
+require'mini.bufremove'.setup()
+vim.keymap.set('n', '<leader>bd',  require('mini.bufremove').delete , { desc = 'Delete Buffer' })
