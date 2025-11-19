@@ -1,0 +1,6 @@
+require'mpa.globals'
+require'mpa.opts'
+require'mpa.keymaps'
+require'mpa.autocmds'
+require'mpa.plugins'
+require'mpa.lang.lua'
