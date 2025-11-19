@@ -1,7 +1,14 @@
-return {
-  'kevinhwang91/nvim-ufo',
-  dependencies = { 'kevinhwang91/promise-async', 'nvim-treesitter/nvim-treesitter' },
-  config = function ()
+vim.pack.add({
+  { src = 'https://github.com/kevinhwang91/nvim-ufo' },
+  { src = 'https://github.com/kevinhwang91/promise-async' },
+  { src = 'https://github.com/nvim-treesitter/nvim-treesitter' },
+}, { confirm = false })
+
+      vim.o.foldcolumn = '0' -- '0' is not bad
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+    vim.o.foldlevelstart = 99
+    vim.o.foldenable = true
+
 local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
         local suffix = (' 󰁂 %d '):format(endLnum - lnum)
@@ -44,11 +51,4 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
         },
       }
 
-      vim.o.foldcolumn = '0' -- '0' is not bad
-      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-    vim.o.foldlevelstart = 99
-    vim.o.foldenable = true
-
       require('ufo').setup(opts)
-  end
-}

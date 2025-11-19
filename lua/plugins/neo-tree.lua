@@ -1,19 +1,13 @@
+vim.pack.add({
+  { src = "https://github.com/nvim-neo-tree/neo-tree.nvim" },
+  { src = 'https://github.com/nvim-lua/plenary.nvim' },
+  { src = 'https://github.com/nvim-tree/nvim-web-devicons' },
+  { src = 'https://github.com/MunifTanjim/nui.nvim' },
+  { src = 'https://github.com/s1n7ax/nvim-window-picker' },
+}, { confirm = false })
 local icons = require('mpa.icons')
-return {
-  "nvim-neo-tree/neo-tree.nvim",
-  lazy = false,
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-    'nvim-tree/nvim-web-devicons',
-    'MunifTanjim/nui.nvim',
-    's1n7ax/nvim-window-picker',
-  },
-  keys = {
-    { "<leader>ft", "<cmd>Neotree toggle<cr>", desc = "NeoTree" },
-    { '<leader>fr', '<cmd>Neotree reveal_file=%<cr>',  desc = 'Reveal Current File on Neotree' },
-    { '<leader>0', vim.cmd.Neotree,  desc = 'Focus on Neotree' },
-  },
-  opts = {
+require'neo-tree'.setup(
+{
     window = {
       auto_expand_width = true, -- expand the window when file exceeds the window width. does not work with position = "float"
       mappings = {
@@ -32,5 +26,9 @@ return {
     default_component_configs = {
       diagnostics = { symbols = icons.diagnostics, },
     },
-  },
-}
+  }
+)
+
+ vim.keymap.set('n', "<leader>ft", "<cmd>Neotree toggle<cr>", { desc = "NeoTree" })
+ vim.keymap.set('n', '<leader>fr', '<cmd>Neotree reveal_file=%<cr>', {  desc = 'Reveal Current File on Neotree' })
+ vim.keymap.set('n', '<leader>0', vim.cmd.Neotree,{ desc = 'Focus on Neotree' })

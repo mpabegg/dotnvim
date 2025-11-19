@@ -1,8 +1,6 @@
-return {
-  "nvim-mini/mini.nvim",
-  config = function ()
-    require'mini.trailspace'.setup()
-    require'mini.splitjoin'.setup()
-    require'mini.diff'.setup()
-  end
-}
+vim.pack.add({
+  { src = "https://github.com/nvim-mini/mini.nvim" },
+}, { confirm = false })
+
+require'mini.trailspace'.setup()
+require'mini.splitjoin'.setup()

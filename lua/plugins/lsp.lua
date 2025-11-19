@@ -1,6 +1,14 @@
-return {
-  { "mason-org/mason.nvim", config = true },
-  { "mason-org/mason-lspconfig.nvim", config = true },
-  { "neovim/nvim-lspconfig" },
-  { "WhoIsSethDaniel/mason-tool-installer.nvim", opts = {} },
-}
+vim.pack.add({
+  { src = "https://github.com/mason-org/mason.nvim" },
+  { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+  { src = "https://github.com/neovim/nvim-lspconfig" },
+  { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+  { src = "https://github.com/folke/lazydev.nvim" },
+}, { confirm = false })
+
+require'mason'.setup()
+require'mason-lspconfig'.setup()
+require'mason-tool-installer'.setup({
+  ensure_installed = { "lua_ls", "stylua" },
+})
+require'lazydev'.setup()

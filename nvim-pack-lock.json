@@ -1,8 +1,85 @@
 {
   "plugins": {
+    "blink.cmp": {
+      "rev": "73ea297",
+      "src": "https://github.com/Saghen/blink.cmp",
+      "version": ">=0.0.0"
+    },
     "lazy.nvim": {
       "rev": "85c7ff3",
       "src": "https://github.com/folke/lazy.nvim"
+    },
+    "lazydev.nvim": {
+      "rev": "5231c62",
+      "src": "https://github.com/folke/lazydev.nvim"
+    },
+    "mason-lspconfig.nvim": {
+      "rev": "7d527c7",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
+    },
+    "mason-tool-installer.nvim": {
+      "rev": "517ef59",
+      "src": "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim"
+    },
+    "mason.nvim": {
+      "rev": "57e5a8a",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "mini.nvim": {
+      "rev": "b409fd1",
+      "src": "https://github.com/nvim-mini/mini.nvim"
+    },
+    "neo-tree.nvim": {
+      "rev": "0bf326c",
+      "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"
+    },
+    "neogit": {
+      "rev": "4ba620ad",
+      "src": "https://github.com/NeogitOrg/neogit"
+    },
+    "nui.nvim": {
+      "rev": "de74099",
+      "src": "https://github.com/MunifTanjim/nui.nvim"
+    },
+    "nvim": {
+      "rev": "da33755",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "nvim-lspconfig": {
+      "rev": "b7c48a7",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    },
+    "nvim-tmux-navigation": {
+      "rev": "4898c98",
+      "src": "https://github.com/alexghergh/nvim-tmux-navigation"
+    },
+    "nvim-treesitter": {
+      "rev": "42fc28ba",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
+    },
+    "nvim-ufo": {
+      "rev": "72d54c3",
+      "src": "https://github.com/kevinhwang91/nvim-ufo"
+    },
+    "nvim-web-devicons": {
+      "rev": "8dcb311",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
+    "nvim-window-picker": {
+      "rev": "6382540",
+      "src": "https://github.com/s1n7ax/nvim-window-picker"
+    },
+    "plenary.nvim": {
+      "rev": "b9fd522",
+      "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "promise-async": {
+      "rev": "119e896",
+      "src": "https://github.com/kevinhwang91/promise-async"
+    },
+    "which-key.nvim": {
+      "rev": "3aab214",
+      "src": "https://github.com/folke/which-key.nvim"
     }
   }
 }
