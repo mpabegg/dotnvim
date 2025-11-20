@@ -9,16 +9,14 @@ local function get_attached_clients()
 
   -- add client
   for _, client in pairs(buf_clients) do
-    if client.name ~= 'null-ls' then
+    if client.name ~= "null-ls" then
       table.insert(buf_client_names, client.name)
     end
   end
 
-  -- Generally, you should use either null-ls or nvim-lint + formatter.nvim, not both.
-
   -- Add sources (from null-ls)
   -- null-ls registers each source as a separate attached client, so we need to filter for unique names down below.
-  local null_ls_s, null_ls = pcall(require, 'null-ls')
+  local null_ls_s, null_ls = pcall(require, "null-ls")
   if null_ls_s then
     local sources = null_ls.get_sources()
     for _, source in ipairs(sources) do
@@ -46,30 +44,28 @@ local function get_attached_clients()
     end
   end
 
-  local client_names_str = table.concat(unique_client_names, ', ')
-  local language_servers = string.format('[%s]', client_names_str)
+  local client_names_str = table.concat(unique_client_names, ", ")
+  local language_servers = string.format("[%s]", client_names_str)
 
   return language_servers
 end
 
 vim.pack.add({
-  { src = 'https://github.com/nvim-lualine/lualine.nvim' },
+  { src = "https://github.com/nvim-lualine/lualine.nvim" },
 })
 
-local icons = require 'mpa.icons'
-require('lualine').setup({
+local icons = require("mpa.icons")
+require("lualine").setup({
   options = {
-    component_separators = { left = '', right = '' },
-    section_separators = { left = '', right = '' },
-    theme = 'auto',
+    theme = "auto",
     globalstatus = true,
-    disabled_filetypes = { statusline = { 'dashboard', 'alpha' } },
+    disabled_filetypes = { statusline = { "dashboard", "alpha" } },
   },
   sections = {
     lualine_a = {
       {
-        'filetype',
-        icon_only = true,
+        "filetype",
+        icon_only = false,
         colored = false,
         padding = {
           left = 1,
@@ -85,29 +81,29 @@ require('lualine').setup({
     },
     lualine_b = {
       {
-        'filename',
+        "filename",
         path = 1,
         symbols = {
           modified = icons.file.modified,
-          readonly = '',
-          unnamed = '',
+          readonly = "",
+          unnamed = "",
         },
       },
     },
     lualine_c = {
-      { 'diagnostics', symbols = icons.diagnostics },
+      { "diagnostics", symbols = icons.diagnostics },
     },
     lualine_x = {
-      { 'diff', symbols = icons.git },
+      { "diff", symbols = icons.git },
     },
     lualine_y = {
-      { 'branch', color = { gui = 'italic' } },
+      { "branch", color = { gui = "italic" } },
     },
     lualine_z = {
       {
-        'location',
+        "location",
       },
     },
   },
-  extensions = { 'neo-tree' },
+  extensions = { "neo-tree" },
 })
