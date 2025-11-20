@@ -55,6 +55,11 @@ return {
   },
   config = function()
     local icons = require("mpa.icons")
+
+    local function maximize_status()
+      return vim.t.maximized and "   " or ""
+    end
+
     require("lualine").setup({
       options = {
         component_separators = { left = "", right = "" },
@@ -88,6 +93,7 @@ return {
           },
         },
         lualine_c = {
+          { maximize_status },
           { "diagnostics", symbols = icons.diagnostics },
         },
         lualine_x = {

@@ -10,7 +10,20 @@ return {
   config = function()
     require("fidget").setup({})
     require("mason").setup()
-    require("mason-lspconfig").setup()
+
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
+
+    require("mason-lspconfig").setup({
+      handlers = {
+        function(server)
+          require("lspconfig")[server].setup({
+            capabilities = capabilities,
+          })
+        end,
+      },
+    })
+
     require("lazydev").setup()
     require("mason-tool-installer").setup({
       ensure_installed = { "lua_ls", "stylua" },
