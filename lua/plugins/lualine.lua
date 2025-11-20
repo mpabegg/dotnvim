@@ -52,11 +52,13 @@ end
 
 vim.pack.add({
   { src = "https://github.com/nvim-lualine/lualine.nvim" },
-})
+}, { confirm = false })
 
 local icons = require("mpa.icons")
 require("lualine").setup({
   options = {
+    component_separators = { left = "", right = "" },
+    section_separators = { left = "", right = "" },
     theme = "auto",
     globalstatus = true,
     disabled_filetypes = { statusline = { "dashboard", "alpha" } },
@@ -65,12 +67,7 @@ require("lualine").setup({
     lualine_a = {
       {
         "filetype",
-        icon_only = false,
         colored = false,
-        padding = {
-          left = 1,
-          right = 1,
-        },
       },
       {
         get_attached_clients,
@@ -99,11 +96,7 @@ require("lualine").setup({
     lualine_y = {
       { "branch", color = { gui = "italic" } },
     },
-    lualine_z = {
-      {
-        "location",
-      },
-    },
+    lualine_z = { { "location" } },
   },
   extensions = { "neo-tree" },
 })
