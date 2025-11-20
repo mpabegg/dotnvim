@@ -2,18 +2,12 @@ require("mpa.opts")
 require("mpa.keymaps")
 require("mpa.autocmds")
 require("mpa.diagnostics")
-require("plugins.colorscheme")
-require("plugins.treesitter")
-require("plugins.which-key")
-require("plugins.neo-tree")
-require("plugins.mini")
-require("plugins.lualine")
-require("plugins.ufo")
-require("plugins.tmux")
-require("plugins.lsp")
-require("plugins.conform")
-require("plugins.blink")
-require("plugins.neogit")
-require("plugins.open-code")
-require("plugins.bufferline")
-require("plugins.snacks")
+
+vim.pack.add({ "https://github.com/folke/lazy.nvim" })
+require("lazy").setup({
+  spec = {
+    { import = "lazy_plugins" },
+  },
+  install = { colorscheme = { "catppuccin-frappe" } },
+  checker = { enabled = true, notify = false },
+})
