@@ -1,13 +1,13 @@
 vim.pack.add({
-  { src = "https://github.com/alexghergh/nvim-tmux-navigation" }
+  { src = "https://github.com/alexghergh/nvim-tmux-navigation" },
 }, { confirm = false })
 
-require('nvim-tmux-navigation').setup({
+require("nvim-tmux-navigation").setup({
   disable_when_zoomed = true,
   keybindings = {
-    left = '<C-h>',
-    down = '<C-j>',
-    up = '<C-k>',
-    right = '<C-l>',
+    left = "<C-h>",
+    down = "<C-j>",
+    up = "<C-k>",
+    right = "<C-l>",
   },
 })

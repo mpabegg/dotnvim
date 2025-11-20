@@ -1,4 +1,4 @@
-local icons = require('mpa.icons')
+local icons = require 'mpa.icons'
 vim.diagnostic.config({
   signs = {
     text = {
@@ -22,5 +22,9 @@ vim.diagnostic.config({
 })
 
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump({ count = 1, float = true })
+end)
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end)

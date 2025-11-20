@@ -9,6 +9,14 @@
       "rev": "655133c",
       "src": "https://github.com/akinsho/bufferline.nvim"
     },
+    "conform.nvim": {
+      "rev": "1bf8b5b",
+      "src": "https://github.com/stevearc/conform.nvim"
+    },
+    "fidget.nvim": {
+      "rev": "e32b672",
+      "src": "https://github.com/j-hui/fidget.nvim"
+    },
     "lazy.nvim": {
       "rev": "85c7ff3",
       "src": "https://github.com/folke/lazy.nvim"
@@ -16,6 +24,10 @@
     "lazydev.nvim": {
       "rev": "5231c62",
       "src": "https://github.com/folke/lazydev.nvim"
+    },
+    "lualine.nvim": {
+      "rev": "3946f01",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "mason-lspconfig.nvim": {
       "rev": "7d527c7",
@@ -73,6 +85,14 @@
       "rev": "6382540",
       "src": "https://github.com/s1n7ax/nvim-window-picker"
     },
+    "opencode.nvim": {
+      "rev": "c3d1bdb",
+      "src": "https://github.com/NickvanDyke/opencode.nvim"
+    },
+    "persistence.nvim": {
+      "rev": "b20b2a7",
+      "src": "https://github.com/folke/persistence.nvim"
+    },
     "plenary.nvim": {
       "rev": "b9fd522",
       "src": "https://github.com/nvim-lua/plenary.nvim"
@@ -80,6 +100,10 @@
     "promise-async": {
       "rev": "119e896",
       "src": "https://github.com/kevinhwang91/promise-async"
+    },
+    "snacks.nvim": {
+      "rev": "fe7cfe9",
+      "src": "https://github.com/folke/snacks.nvim"
     },
     "which-key.nvim": {
       "rev": "3aab214",

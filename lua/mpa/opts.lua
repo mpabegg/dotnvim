@@ -26,8 +26,8 @@ vim.o.incsearch = true
 -- Appearance
 -- ============================================================================
 vim.o.termguicolors = true
-vim.o.background = "dark"
-vim.o.signcolumn = "yes"
+vim.o.background = 'dark'
+vim.o.signcolumn = 'yes'
 vim.o.cursorline = true
 vim.o.colorcolumn = '120'
 vim.o.laststatus = 3
@@ -58,13 +58,13 @@ vim.o.cmdheight = 1
 -- ============================================================================
 -- Completion
 -- ============================================================================
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = 'menuone,noselect'
 
 -- ============================================================================
 -- File Management
 -- ============================================================================
 vim.o.undofile = true
-vim.o.undodir = vim.fn.stdpath('data') .. '/undodir'
+vim.o.undodir = vim.fn.stdpath 'data' .. '/undodir'
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
@@ -79,9 +79,11 @@ vim.g.netrw_winsize = 25
 -- ============================================================================
 -- Behavior
 -- ============================================================================
-vim.o.mouse = "a"
-vim.schedule(function() vim.o.clipboard = "unnamedplus" end)
-vim.opt.formatoptions:remove({ "c", "r", "o" })
+vim.o.mouse = 'a'
+vim.schedule(function()
+  vim.o.clipboard = 'unnamedplus'
+end)
+vim.opt.formatoptions:remove({ 'c', 'r', 'o' })
 
 -- ============================================================================
 -- Performance
