@@ -10,7 +10,7 @@ This is a modular Neovim configuration (mpa) organized under `lua/`. It focuses 
 ## Plugins overview
 - Core: `folke/lazy.nvim` for plugin management via `vim.pack`.
 - UI: `nvim-lualine/lualine.nvim`, `akinsho/bufferline.nvim`, `nvim-neo-tree/neo-tree.nvim`, `nvim-tree/nvim-web-devicons`.
-- Editing: `nvim-treesitter/nvim-treesitter`, `nvim-mini/mini.nvim` (trailspace, bufremove, surround, etc.), `stevearc/conform.nvim` for formatting.
+- Editing: `nvim-treesitter/nvim-treesitter`, `nvim-mini/mini.nvim` (trailspace, bufremove, etc.), `stevearc/conform.nvim` for formatting.
 - LSP & completion: LSP setup under `lua/lazy_plugins/lsp.lua` plus `saghen/blink.cmp` for completion and `kevinhwang91/nvim-ufo` for folding.
 - Workflow helpers: `folke/which-key.nvim`, `folke/snacks.nvim` (picker), `folke/persistence.nvim` (sessions), `NeogitOrg/neogit`, `aserowy/tmux.nvim`, and `NickvanDyke/opencode.nvim`.
 
@@ -78,8 +78,6 @@ Leader keys:
 | Opencode    | n, x         | `<leader>op`    | Opencode: Add to prompt                          |
 | Opencode    | n            | `<leader>ou`    | Opencode: half page up                           |
 | Opencode    | n            | `<leader>od`    | Opencode: half page down                         |
-| Opencode    | n            | `+`             | Increment (`<C-a>`)                              |
-| Opencode    | n            | `-`             | Decrement (`<C-x>`)                              |
 
 **Notes & Recommendations**
 - Duplicate mapping: `<leader>bd` defined both in `lua/mpa/keymaps.lua` and `lua/lazy_plugins/mini.lua`; consider removing one.

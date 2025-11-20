@@ -18,7 +18,6 @@ vim.keymap.set('n', '<C-S-Right>', ':vertical resize +2<CR>', { desc = 'Increase
 -- Buffer navigation
 vim.keymap.set('n', '<S-l>', ':bnext<CR>', { desc = 'Next buffer' })
 vim.keymap.set('n', '<S-h>', ':bprevious<CR>', { desc = 'Previous buffer' })
-vim.keymap.set('n', '<leader>bd', ':bdelete<CR>', { desc = 'Delete buffer' })
 
 -- Clear search highlighting
 vim.keymap.set('n', '<Esc>', ':noh<CR>', { desc = 'Clear search highlighting' })
