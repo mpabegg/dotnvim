@@ -1,101 +1,66 @@
--- ============================================================================
--- Line Numbers
--- ============================================================================
 vim.o.number = true
 vim.o.relativenumber = false
 vim.o.numberwidth = 2
-
--- ============================================================================
--- Indentation
--- ============================================================================
 vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.o.autoindent = true
 vim.o.smartindent = true
-
--- ============================================================================
--- Search
--- ============================================================================
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.hlsearch = true
 vim.o.incsearch = true
-
--- ============================================================================
--- Appearance
--- ============================================================================
 vim.o.termguicolors = true
-vim.o.background = "dark"
-vim.o.signcolumn = "yes"
+vim.o.background = 'dark'
+vim.o.signcolumn = 'yes'
 vim.o.cursorline = true
-vim.o.colorcolumn = "120"
+vim.o.colorcolumn = '120'
 vim.o.laststatus = 3
 vim.o.wrap = false
 vim.opt.list = true
-vim.opt.winborder = "rounded"
-
--- ============================================================================
--- Folding
--- ============================================================================
-vim.o.foldcolumn = "0"
+vim.opt.winborder = 'rounded'
+vim.o.foldcolumn = '0'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
-
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
--- ============================================================================
--- Scrolling & Navigation
--- ============================================================================
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.fillchars = {
+  foldopen = '',
+  foldclose = '',
+  fold = ' ',
+  foldsep = ' ',
+  diff = '╱',
+  eob = ' ',
+}
 vim.o.scrolloff = 8
 vim.o.autochdir = false
-
--- ============================================================================
--- Windows & Splits
--- ============================================================================
 vim.o.splitright = true
 vim.o.splitbelow = true
-
--- ============================================================================
--- Command Line
--- ============================================================================
 vim.o.showmode = false
 vim.o.showcmd = true
 vim.o.cmdheight = 1
-
--- ============================================================================
--- Completion
--- ============================================================================
-vim.o.completeopt = "menuone,noselect"
-
--- ============================================================================
--- File Management
--- ============================================================================
+vim.o.completeopt = 'menu,menuone,noselect'
 vim.o.undofile = true
-vim.o.undodir = vim.fn.stdpath("data") .. "/undodir"
+vim.o.undodir = vim.fn.stdpath 'data' .. '/undodir'
 vim.o.backup = false
 vim.o.writebackup = false
 vim.o.swapfile = false
-
--- ============================================================================
--- File Browser (netrw)
--- ============================================================================
+vim.o.autoread = true
 vim.g.netrw_browse_split = 0
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
-
--- ============================================================================
--- Behavior
--- ============================================================================
-vim.o.mouse = "a"
+vim.o.mouse = 'a'
 vim.schedule(function()
-  vim.o.clipboard = "unnamedplus"
+  vim.o.clipboard = 'unnamedplus'
 end)
-vim.opt.formatoptions:remove({ "c", "r", "o" })
-
--- ============================================================================
--- Performance
--- ============================================================================
+vim.opt.formatoptions:remove { 'c', 'r', 'o' }
 vim.o.updatetime = 250
 vim.o.timeoutlen = 300
+
+vim.opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
+vim.opt.confirm = true -- Confirm to save changes before exiting modified buffer
+
+function Statuscolumn()
+  return package.loaded.snacks and require('snacks.statuscolumn').get() or ''
+end
+vim.opt.statuscolumn = [[%!v:lua.Statuscolumn()]]

@@ -1,7 +1,7 @@
 local vim = vim
 
 local function get_attached_clients()
-  local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
+  local buf_clients = vim.lsp.get_clients { bufnr = 0 }
   if #buf_clients == 0 then
     return nil
   end
@@ -10,12 +10,12 @@ local function get_attached_clients()
   local buf_client_names = {}
 
   for _, client in pairs(buf_clients) do
-    if client.name ~= "null-ls" then
+    if client.name ~= 'null-ls' then
       table.insert(buf_client_names, client.name)
     end
   end
 
-  local null_ls_s, null_ls = pcall(require, "null-ls")
+  local null_ls_s, null_ls = pcall(require, 'null-ls')
   if null_ls_s then
     local sources = null_ls.get_sources()
     for _, source in ipairs(sources) do
@@ -42,36 +42,32 @@ local function get_attached_clients()
     end
   end
 
-  local client_names_str = table.concat(unique_client_names, ", ")
-  local language_servers = string.format("[%s]", client_names_str)
+  local client_names_str = table.concat(unique_client_names, '  ')
+  local language_servers = string.format('  %s', client_names_str)
 
   return language_servers
 end
 
 return {
-  "nvim-lualine/lualine.nvim",
+  'nvim-lualine/lualine.nvim',
   dependencies = {
-    "nvim-tree/nvim-web-devicons",
+    'nvim-tree/nvim-web-devicons',
   },
   config = function()
-    local icons = require("mpa.icons")
+    local icons = require 'mpa.icons'
 
-    local function maximize_status()
-      return vim.t.maximized and "   " or ""
-    end
-
-    require("lualine").setup({
+    require('lualine').setup {
       options = {
-        component_separators = { left = "", right = "" },
-        section_separators = { left = "", right = "" },
-        theme = "auto",
+        component_separators = { left = '║', right = '║' },
+        section_separators = { left = '║', right = '║' },
+        theme = 'auto',
         globalstatus = true,
-        disabled_filetypes = { statusline = { "dashboard", "alpha" } },
+        disabled_filetypes = { statusline = { 'dashboard', 'alpha' } },
       },
       sections = {
         lualine_a = {
           {
-            "filetype",
+            'filetype',
             colored = false,
           },
           {
@@ -83,28 +79,29 @@ return {
         },
         lualine_b = {
           {
-            "filename",
+            'filename',
             path = 1,
             symbols = {
-              modified = icons.file.modified,
-              readonly = "",
-              unnamed = "",
+              modified = '',
+
+              -- modified = icons.file.modified,
+              readonly = '',
+              unnamed = '',
             },
           },
         },
         lualine_c = {
-          { maximize_status },
-          { "diagnostics", symbols = icons.diagnostics },
+          { 'diagnostics', symbols = icons.diagnostics },
         },
         lualine_x = {
-          { "diff", symbols = icons.git },
+          { 'diff', symbols = icons.git },
         },
         lualine_y = {
-          { "branch", color = { gui = "italic" } },
+          { 'branch', color = { gui = 'italic' } },
         },
-        lualine_z = { { "location" } },
+        lualine_z = { { 'location' } },
       },
-      extensions = { "neo-tree" },
-    })
+      extensions = { 'neo-tree' },
+    }
   end,
 }

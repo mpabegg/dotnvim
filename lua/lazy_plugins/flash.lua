@@ -1,6 +1,7 @@
 return {
   'folke/flash.nvim',
   event = 'VeryLazy',
+
   ---@type Flash.Config
   opts = {},
   keys = {
@@ -16,7 +17,7 @@ return {
       'F',
       mode = { 'n', 'x', 'o' },
       function()
-        require('flash').jump({ search = { forward = false, wrap = false, multi_window = false } })
+        require('flash').jump { search = { forward = false, wrap = false, multi_window = false } }
       end,
       desc = 'Flash Backward',
     },

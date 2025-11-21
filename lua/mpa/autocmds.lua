@@ -19,8 +19,8 @@ autocmd('BufWritePre', {
   group = general,
   pattern = '*',
   callback = function()
-    MiniTrailspace.trim()
-    MiniTrailspace.trim_last_lines()
+    require('mini.trailspace').trim()
+    require('mini.trailspace').trim_last_lines()
   end,
   desc = 'Remove trailing whitespace on save',
 })
@@ -47,6 +47,14 @@ autocmd('VimResized', {
     vim.cmd 'tabdo wincmd ='
   end,
   desc = 'Auto-resize splits',
+})
+
+-- Auto-reload files changed outside Neovim
+autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
+  group = general,
+  pattern = '*',
+  command = 'checktime',
+  desc = 'Auto-reload changed files',
 })
 
 -- Close some filetypes with <q>

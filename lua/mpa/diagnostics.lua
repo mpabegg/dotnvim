@@ -1,5 +1,5 @@
 local icons = require 'mpa.icons'
-vim.diagnostic.config({
+vim.diagnostic.config {
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
@@ -19,12 +19,12 @@ vim.diagnostic.config({
     header = '',
     prefix = '',
   },
-})
+}
 
 vim.keymap.set('n', 'gl', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', function()
-  vim.diagnostic.jump({ count = 1, float = true })
+  vim.diagnostic.jump { count = 1, float = true }
 end)
 vim.keymap.set('n', ']d', function()
-  vim.diagnostic.jump({ count = -1, float = true })
+  vim.diagnostic.jump { count = -1, float = true }
 end)
