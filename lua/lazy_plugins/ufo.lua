@@ -36,7 +36,7 @@ return {
     end
 
     local opts = {
-      -- fold_virt_text_handler = handler,
+      fold_virt_text_handler = handler,
       provider_selector = function()
         return { 'treesitter', 'indent' }
       end,
