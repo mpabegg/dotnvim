@@ -46,46 +46,6 @@ return {
           end
           return s
         end,
-
-        custom_areas = {
-          right = function()
-            local result = {}
-            local seve = vim.diagnostic.severity
-            local error = #vim.diagnostic.get(0, { severity = seve.ERROR })
-            local warning = #vim.diagnostic.get(0, { severity = seve.WARN })
-            local info = #vim.diagnostic.get(0, { severity = seve.INFO })
-            local hint = #vim.diagnostic.get(0, { severity = seve.HINT })
-
-            if error ~= 0 then
-              table.insert(result, {
-                text = ' ' .. require('mpa.icons').diagnostics.error .. error,
-                link = 'DiagnosticError',
-              })
-            end
-
-            if warning ~= 0 then
-              table.insert(result, {
-                text = ' ' .. require('mpa.icons').diagnostics.warn .. warning,
-                link = 'DiagnosticWarn',
-              })
-            end
-
-            if hint ~= 0 then
-              table.insert(result, {
-                text = ' ' .. require('mpa.icons').diagnostics.hint .. hint,
-                link = 'DiagnosticHint',
-              })
-            end
-
-            if info ~= 0 then
-              table.insert(result, {
-                text = ' ' .. require('mpa.icons').diagnostics.info .. info,
-                link = 'DiagnosticInfo',
-              })
-            end
-            return result
-          end,
-        },
       },
     }
   end,
