@@ -3,6 +3,15 @@ local vim = vim
 return {
   'folke/snacks.nvim',
   lazy = false,
+  keys = {
+    {
+      '<leader>uC',
+      function()
+        Snacks.picker.colorschemes()
+      end,
+      desc = 'Colorschemes',
+    },
+  },
   config = function()
     require('snacks').setup {
       picker = {
@@ -15,6 +24,7 @@ return {
         },
       },
       explorer = {
+        enabled = false,
         replace_netrw = true,
         trash = true,
       },
@@ -47,5 +57,4 @@ return {
 
     Snacks.toggle.zoom():map('<leader>wm'):map '<leader>z'
   end,
-
 }

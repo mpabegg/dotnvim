@@ -2,8 +2,8 @@ local vim = vim
 
 return {
   'nvim-neo-tree/neo-tree.nvim',
-  enabled = false,
   branch = 'v3.x',
+  -- event = 'VeryLazy',
   lazy = false,
   dependencies = {
     'nvim-lua/plenary.nvim',

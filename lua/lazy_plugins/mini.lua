@@ -8,6 +8,7 @@ return {
     require('mini.splitjoin').setup()
     require('mini.bufremove').setup()
     require('mini.icons').setup()
+    require('mini.diff').setup()
     require('mini.indentscope').setup()
 
     vim.keymap.set('n', '<leader>bd', require('mini.bufremove').delete, { desc = 'Delete Buffer' })

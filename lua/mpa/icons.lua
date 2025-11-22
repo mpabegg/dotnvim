@@ -9,7 +9,7 @@ return {
     carret_up = '',
   },
   file = {
-    modified = '',
+    modified = '',
   },
   diagnostics = {
     hint = '',
