@@ -27,8 +27,22 @@ return {
         diagnostics_indicator = function(_, _, diagnostics_dict)
           local s = ' '
           for e, n in pairs(diagnostics_dict) do
-            local sym = e == 'error' and icons.diagnostics.error or (e == 'warning' and icons.diagnostics.warn or icons.diagnostics.info)
-            s = s .. n .. sym
+            local sym = ''
+            local highlight = ''
+            if e == 'error' then
+              sym = icons.diagnostics.error
+              highlight = '%#DiagnosticError#'
+            elseif e == 'warning' then
+              sym = icons.diagnostics.warn
+              highlight = '%#DiagnosticWarn#'
+            elseif e == 'info' then
+              sym = icons.diagnostics.info
+              highlight = '%#DiagnosticInfo#'
+            elseif e == 'hint' then
+              sym = icons.diagnostics.hint
+              highlight = '%#DiagnosticHint#'
+            end
+            s = s .. highlight .. n .. sym .. '%*'
           end
           return s
         end,
