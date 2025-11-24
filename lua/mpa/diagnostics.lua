@@ -1,7 +1,3 @@
-if true then
-  return {}
-end
-
 local icons = require 'mpa.icons'
 vim.diagnostic.config {
   signs = {
@@ -14,7 +10,8 @@ vim.diagnostic.config {
   },
   virtual_text = true,
   update_in_insert = false,
-  underline = false,
+  underline = true,
+
   severity_sort = true,
   float = {
     focusable = true,

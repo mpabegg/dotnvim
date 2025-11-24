@@ -11,6 +11,10 @@ return {
         "vimdoc",
         "markdown",
         "markdown_inline",
+        "ruby",
+        "javascript",
+        "typescript",
+        "tsx",
       },
       auto_install = true,
       highlight = {
