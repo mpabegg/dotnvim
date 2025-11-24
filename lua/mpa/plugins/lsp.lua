@@ -47,6 +47,34 @@ return {
       ensure_installed = mason_tools,
     }
 
+    -- Global LspAttach autocommand for keymaps
+    vim.api.nvim_create_autocmd('LspAttach', {
+      group = vim.api.nvim_create_augroup('UserLspKeymaps', { clear = true }),
+      callback = function(ev)
+        -- Use Snacks for LSP list operations
+        vim.keymap.set('n', 'gd', function()
+          Snacks.picker.lsp_definitions()
+        end, { desc = 'Go to Definition', buffer = ev.buf })
+
+        vim.keymap.set('n', 'gr', function()
+          Snacks.picker.lsp_references()
+        end, { desc = 'Find References', buffer = ev.buf })
+
+        vim.keymap.set('n', 'gI', function()
+          Snacks.picker.lsp_implementations()
+        end, { desc = 'Go to Implementation', buffer = ev.buf })
+
+        vim.keymap.set('n', 'gy', function()
+          Snacks.picker.lsp_type_definitions()
+        end, { desc = 'Go to Type Definition', buffer = ev.buf })
+
+        -- Format buffer
+        vim.keymap.set('n', '<localleader>f', function()
+          vim.lsp.buf.format { async = true }
+        end, { desc = 'Format Buffer', buffer = ev.buf })
+      end,
+    })
+
     -- Global LspAttach autocommand to disable formatting for specific servers
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('LspAttachDisableFormatting', { clear = true }),
