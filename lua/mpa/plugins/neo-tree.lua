@@ -15,6 +15,7 @@ return {
     'Neotree',
   },
   keys = {
+    -- File operations (f prefix)
     { '<leader>ft', '<cmd>Neotree toggle<cr>', desc = 'NeoTree' },
     { '<leader>fr', '<cmd>Neotree reveal_file=%<cr>', desc = 'Reveal Current File on Neotree' },
     { '<leader>0', vim.cmd.Neotree, desc = 'Focus on Neotree' },

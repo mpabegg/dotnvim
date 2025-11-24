@@ -37,6 +37,7 @@ return {
       use_default_keymaps = false,
     },
     keys = {
+      -- File operations (f prefix)
       {
         '<leader>fm',
         function()

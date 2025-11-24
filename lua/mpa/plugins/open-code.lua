@@ -17,6 +17,7 @@ return {
     }
     vim.o.autoread = true
 
+    -- Other/Open operations (o prefix)
     vim.keymap.set({ 'n', 'x' }, '<leader>oa', function()
       require('opencode').ask('@this: ', { submit = true })
     end, { desc = 'Opencode: Ask' })

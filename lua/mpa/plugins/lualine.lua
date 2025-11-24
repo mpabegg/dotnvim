@@ -8,23 +8,7 @@ local function get_attached_clients()
   local buf_client_names = {}
 
   for _, client in pairs(buf_clients) do
-    if client.name ~= 'null-ls' then
-      table.insert(buf_client_names, client.name)
-    end
-  end
-
-  local null_ls_s, null_ls = pcall(require, 'null-ls')
-  if null_ls_s then
-    local sources = null_ls.get_sources()
-    for _, source in ipairs(sources) do
-      if source._validated then
-        for ft_name, ft_active in pairs(source.filetypes) do
-          if ft_name == buf_ft and ft_active then
-            table.insert(buf_client_names, source.name)
-          end
-        end
-      end
-    end
+    table.insert(buf_client_names, client.name)
   end
 
   local unique_client_names = {}
@@ -87,7 +71,7 @@ return {
             },
           },
           lualine_z = {
-            { 'location', separator = '', padding = { right = 1, left = 0 } },
+            { 'location', separator = '' },
             { 'progress', padding = { left = 0, right = 1 } },
           },
         },

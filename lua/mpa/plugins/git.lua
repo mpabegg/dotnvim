@@ -14,6 +14,7 @@ return {
         },
       }
 
+      -- Git operations (g prefix)
       vim.keymap.set('n', '<leader>gs', require('neogit').open, { desc = 'Open Neogit' })
     end,
   },

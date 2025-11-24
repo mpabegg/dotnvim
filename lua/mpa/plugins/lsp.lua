@@ -5,10 +5,8 @@ return {
     'mason-org/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     'folke/lazydev.nvim',
-    'j-hui/fidget.nvim',
   },
   config = function()
-    require('fidget').setup {}
     require('mason').setup()
     require('lazydev').setup()
 
@@ -16,19 +14,11 @@ return {
     capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
 
     local servers = {
-      ruby_lsp = {
-        root_dir = function(fname)
-          -- Custom root dir for COBRA/Monorepo
-          -- Look for .git directory to correctly handle COBRA/Monorepo structures
-          -- Using vim.fs.root to find the .git directory
-          return vim.fs.root(fname, { '.git' }) or vim.fs.dirname(fname)
-        end,
-      },
       vtsls = {},
       lua_ls = {
         settings = {
           Lua = {
-            diagnostics = { globals = { 'vim' } },
+            diagnostics = { globals = { 'vim', 'Snacks' } },
           },
         },
       },
@@ -40,6 +30,7 @@ return {
       'rubocop',
       'prettier',
       'eslint_d',
+      'lua_ls',
       'stylua',
     }
 
@@ -72,6 +63,11 @@ return {
         vim.keymap.set('n', '<localleader>f', function()
           vim.lsp.buf.format { async = true }
         end, { desc = 'Format Buffer', buffer = ev.buf })
+
+        -- LSP operations (l prefix)
+        vim.keymap.set('n', '<leader>ls', function()
+          Snacks.picker.lsp_symbols()
+        end, { desc = 'Document Symbols', buffer = ev.buf })
       end,
     })
 
@@ -84,7 +80,7 @@ return {
           return
         end
 
-        -- Disable formatting for vtsls/tsserver to allow none-ls (eslint) to handle it
+        -- Disable formatting for vtsls/tsserver to allow conform (eslint) to handle it
         if client.name == 'vtsls' or client.name == 'tsserver' or client.name == 'ts_ls' then
           client.server_capabilities.documentFormattingProvider = false
           client.server_capabilities.documentRangeFormattingProvider = false
