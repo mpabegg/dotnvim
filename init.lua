@@ -5,7 +5,7 @@ require 'mpa.diagnostics'
 
 vim.pack.add { 'https://github.com/folke/lazy.nvim' }
 require('lazy').setup {
-  spec = { { import = 'lazy_plugins' } },
+  spec = { { import = 'mpa.plugins' } },
   install = { colorscheme = { 'catppuccin-frappe' } },
   checker = {
     enabled = true,

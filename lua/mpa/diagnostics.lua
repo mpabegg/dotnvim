@@ -1,3 +1,7 @@
+if true then
+  return {}
+end
+
 local icons = require 'mpa.icons'
 vim.diagnostic.config {
   signs = {

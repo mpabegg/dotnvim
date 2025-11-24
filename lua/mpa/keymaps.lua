@@ -42,3 +42,15 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Previous search result' })
 vim.keymap.set('n', '<leader>wv', '<CMD>vsplit<CR>', { desc = 'Split window vertically' })
 vim.keymap.set('n', '<leader>ws', '<CMD>split<CR>', { desc = 'Split window horizontally' })
 vim.keymap.set('n', '<leader>wd', '<CMD>close<CR>', { desc = 'Close current split' })
+
+vim.keymap.set('n', 'K', function()
+  local ufo_ok, ufo = pcall(require, 'ufo')
+  if ufo_ok then
+    local winid = ufo.peekFoldedLinesUnderCursor()
+    if not winid then
+      vim.lsp.buf.hover()
+    end
+  else
+    vim.lsp.buf.hover()
+  end
+end)
