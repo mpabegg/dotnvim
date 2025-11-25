@@ -44,7 +44,7 @@ vim.keymap.set('n', 'N', 'Nzzzv', { desc = 'Previous search result' })
 -- Window operations (w prefix)
 vim.keymap.set('n', '<leader>wv', '<CMD>vsplit<CR>', { desc = 'Split window vertically' })
 vim.keymap.set('n', '<leader>ws', '<CMD>split<CR>', { desc = 'Split window horizontally' })
-vim.keymap.set('n', '<leader>wc', '<CMD>close<CR>', { desc = 'Close current split' })
+vim.keymap.set('n', '<leader>wd', '<CMD>close<CR>', { desc = 'Close current split' })
 
 vim.keymap.set('n', 'K', function()
   local ufo_ok, ufo = pcall(require, 'ufo')

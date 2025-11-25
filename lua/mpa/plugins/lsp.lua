@@ -5,8 +5,54 @@ return {
     'mason-org/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     'folke/lazydev.nvim',
+    {
+      'SmiteshP/nvim-navic',
+      opts = {
+        highlight = false,
+        separator = '  ',
+        depth_limit = 5,
+        lsp = {
+          auto_attach = true,
+        },
+      },
+    },
   },
   config = function()
+    local function on_attach(client, buffer)
+      -- Use Snacks for LSP list operations
+      vim.keymap.set('n', 'gd', function()
+        Snacks.picker.lsp_definitions()
+      end, { desc = 'Go to Definition', buffer = buffer })
+
+      vim.keymap.set('n', 'gr', function()
+        Snacks.picker.lsp_references()
+      end, { desc = 'Find References', buffer = buffer })
+
+      vim.keymap.set('n', 'gI', function()
+        Snacks.picker.lsp_implementations()
+      end, { desc = 'Go to Implementation', buffer = buffer })
+
+      vim.keymap.set('n', 'gy', function()
+        Snacks.picker.lsp_type_definitions()
+      end, { desc = 'Go to Type Definition', buffer = buffer })
+
+      -- Format buffer
+      vim.keymap.set('n', '<localleader>f', function()
+        vim.lsp.buf.format { async = true }
+      end, { desc = 'Format Buffer', buffer = buffer })
+
+      -- LSP operations (l prefix)
+      vim.keymap.set('n', '<leader>ls', function()
+        Snacks.picker.lsp_symbols()
+      end, { desc = 'Document Symbols', buffer = buffer })
+
+      -- Disable formatting for vtsls/tsserver to allow conform (eslint) to handle it
+      if client.name == 'vtsls' or client.name == 'tsserver' or client.name == 'ts_ls' then
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end
+    end
+
     require('mason').setup()
     require('lazydev').setup()
 
@@ -38,61 +84,12 @@ return {
       ensure_installed = mason_tools,
     }
 
-    -- Global LspAttach autocommand for keymaps
-    vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('UserLspKeymaps', { clear = true }),
-      callback = function(ev)
-        -- Use Snacks for LSP list operations
-        vim.keymap.set('n', 'gd', function()
-          Snacks.picker.lsp_definitions()
-        end, { desc = 'Go to Definition', buffer = ev.buf })
-
-        vim.keymap.set('n', 'gr', function()
-          Snacks.picker.lsp_references()
-        end, { desc = 'Find References', buffer = ev.buf })
-
-        vim.keymap.set('n', 'gI', function()
-          Snacks.picker.lsp_implementations()
-        end, { desc = 'Go to Implementation', buffer = ev.buf })
-
-        vim.keymap.set('n', 'gy', function()
-          Snacks.picker.lsp_type_definitions()
-        end, { desc = 'Go to Type Definition', buffer = ev.buf })
-
-        -- Format buffer
-        vim.keymap.set('n', '<localleader>f', function()
-          vim.lsp.buf.format { async = true }
-        end, { desc = 'Format Buffer', buffer = ev.buf })
-
-        -- LSP operations (l prefix)
-        vim.keymap.set('n', '<leader>ls', function()
-          Snacks.picker.lsp_symbols()
-        end, { desc = 'Document Symbols', buffer = ev.buf })
-      end,
-    })
-
-    -- Global LspAttach autocommand to disable formatting for specific servers
-    vim.api.nvim_create_autocmd('LspAttach', {
-      group = vim.api.nvim_create_augroup('LspAttachDisableFormatting', { clear = true }),
-      callback = function(args)
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if not client then
-          return
-        end
-
-        -- Disable formatting for vtsls/tsserver to allow conform (eslint) to handle it
-        if client.name == 'vtsls' or client.name == 'tsserver' or client.name == 'ts_ls' then
-          client.server_capabilities.documentFormattingProvider = false
-          client.server_capabilities.documentRangeFormattingProvider = false
-        end
-      end,
-    })
-
     require('mason-lspconfig').setup {
       handlers = {
         function(server_name)
           local server_config = servers[server_name] or {}
           server_config.capabilities = capabilities
+          server_config.on_attach = on_attach
 
           -- Use the new Nvim 0.11+ LSP API
           vim.lsp.config(server_name, server_config)
@@ -117,8 +114,8 @@ return {
       if not is_mason then
         local config = servers[server_name] or {}
         config.capabilities = capabilities
+        config.on_attach = on_attach
 
-        -- Use the new Nvim 0.11+ LSP API
         vim.lsp.config(server_name, config)
         vim.lsp.enable(server_name)
       end
