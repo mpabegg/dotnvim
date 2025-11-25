@@ -23,16 +23,10 @@ vim.o.foldcolumn = '0'
 vim.o.foldlevel = 99
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
+vim.o.foldmethod = 'expr'
+vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-vim.opt.fillchars = {
-  foldopen = require('mpa.icons').ui.carret_down,
-  foldclose = require('mpa.icons').ui.carret_right,
-  fold = ' ',
-  foldsep = ' ',
-  diff = '╱',
-  eob = ' ',
-}
 vim.o.scrolloff = 8
 vim.o.autochdir = false
 vim.o.splitright = true

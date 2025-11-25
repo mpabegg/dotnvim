@@ -11,7 +11,7 @@ This is a modular Neovim configuration (mpa) organized under `lua/`. It focuses 
 - Core: `folke/lazy.nvim` for plugin management via `vim.pack`.
 - UI: `nvim-lualine/lualine.nvim`, `akinsho/bufferline.nvim`, `nvim-neo-tree/neo-tree.nvim`, `nvim-tree/nvim-web-devicons`.
 - Editing: `nvim-treesitter/nvim-treesitter`, `nvim-mini/mini.nvim` (trailspace, bufremove, etc.), `stevearc/conform.nvim` for formatting.
-- LSP & completion: LSP setup under `lua/lazy_plugins/lsp.lua` plus `saghen/blink.cmp` for completion and `kevinhwang91/nvim-ufo` for folding.
+- LSP & completion: LSP setup under `lua/lazy_plugins/lsp.lua` plus `saghen/blink.cmp` for completion. Treesitter folding is enabled natively.
 - Workflow helpers: `folke/which-key.nvim`, `folke/snacks.nvim` (picker), `folke/persistence.nvim` (sessions), `NeogitOrg/neogit`, `aserowy/tmux.nvim`, and `NickvanDyke/opencode.nvim`.
 
 ## Quick checks / Developer commands

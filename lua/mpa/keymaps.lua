@@ -47,13 +47,12 @@ vim.keymap.set('n', '<leader>ws', '<CMD>split<CR>', { desc = 'Split window horiz
 vim.keymap.set('n', '<leader>wd', '<CMD>close<CR>', { desc = 'Close current split' })
 
 vim.keymap.set('n', 'K', function()
-  local ufo_ok, ufo = pcall(require, 'ufo')
-  if ufo_ok then
-    local winid = ufo.peekFoldedLinesUnderCursor()
-    if not winid then
-      vim.lsp.buf.hover()
-    end
+  -- Check if cursor is on a folded line
+  if vim.fn.foldclosed('.') ~= -1 then
+    -- If on a fold, open it
+    vim.cmd('normal! zo')
   else
+    -- Otherwise show LSP hover
     vim.lsp.buf.hover()
   end
 end)

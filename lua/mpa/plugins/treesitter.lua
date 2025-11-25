@@ -25,6 +25,9 @@ return {
         indent = {
           enable = true,
         },
+        fold = {
+          enable = true,
+        },
       }
     end,
   },
