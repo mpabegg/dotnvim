@@ -44,6 +44,7 @@ Later(function()
     { '<leader>w', group = 'window' },
     { '<leader>h', group = 'help' },
     { '<leader>a', group = 'ai' },
+    { '<leader>u', group = 'ui' },
   }
 end)
 
