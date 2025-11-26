@@ -1,11 +1,10 @@
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
-
--- General settings group
-local general = augroup('General', { clear = true })
+-- ============================================================================
+-- Autocmds
+-- ============================================================================
+local general = vim.api.nvim_create_augroup('General', { clear = true })
 
 -- Highlight yanked text
-autocmd('TextYankPost', {
+vim.api.nvim_create_autocmd('TextYankPost', {
   group = general,
   pattern = '*',
   callback = function()
@@ -14,19 +13,8 @@ autocmd('TextYankPost', {
   desc = 'Highlight yanked text',
 })
 
--- Remove trailing whitespace on save
-autocmd('BufWritePre', {
-  group = general,
-  pattern = '*',
-  callback = function()
-    require('mini.trailspace').trim()
-    require('mini.trailspace').trim_last_lines()
-  end,
-  desc = 'Remove trailing whitespace on save',
-})
-
 -- Restore cursor position when opening a file
-autocmd('BufReadPost', {
+vim.api.nvim_create_autocmd('BufReadPost', {
   group = general,
   pattern = '*',
   callback = function()
@@ -40,7 +28,7 @@ autocmd('BufReadPost', {
 })
 
 -- Auto-resize splits when window is resized
-autocmd('VimResized', {
+vim.api.nvim_create_autocmd('VimResized', {
   group = general,
   pattern = '*',
   callback = function()
@@ -49,16 +37,8 @@ autocmd('VimResized', {
   desc = 'Auto-resize splits',
 })
 
--- Auto-reload files changed outside Neovim
-autocmd({ 'FocusGained', 'TermClose', 'TermLeave' }, {
-  group = general,
-  pattern = '*',
-  command = 'checktime',
-  desc = 'Auto-reload changed files',
-})
-
 -- Close some filetypes with <q>
-autocmd('FileType', {
+vim.api.nvim_create_autocmd('FileType', {
   group = general,
   pattern = { 'help', 'qf', 'lspinfo', 'man', 'checkhealth' },
   callback = function(event)
@@ -75,3 +55,4 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
   desc = 'Disable auto-comment on newline',
 })
+
