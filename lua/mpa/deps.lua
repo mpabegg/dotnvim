@@ -24,8 +24,8 @@ local function add_specs(specs)
 end
 
 Add = add_specs
-XAdd = function() end
+XAdd = function(_) end
 Now = MiniDeps.now -- keep original semantics
-XNow = function() end
+XNow = function(_) end
 Later = MiniDeps.later -- keep original semantics
-XLater = function() end
+XLater = function(_) end
