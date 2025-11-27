@@ -14,12 +14,3 @@ require 'mpa.core.autocmds'
 -- Plugins (One file per plugin)
 -- ============================================================================
 require 'mpa.plugins'
-
--- ============================================================================
--- Functional Modules
--- ============================================================================
-require 'mpa.modules.ui'
-require 'mpa.modules.coding'
-require 'mpa.modules.editor'
-require 'mpa.modules.snacks'
-require 'mpa.modules.git'
