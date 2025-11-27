@@ -6,6 +6,7 @@ Later(function()
   wk.add({
     { '<leader>f', group = 'find/file' },
     { '<leader>g', group = 'git' },
+    { '<leader>gh', group = 'hunks' },
     { '<leader>s', group = 'search' },
     { '<leader>b', group = 'buffer' },
     { '<leader>w', group = 'window' },
