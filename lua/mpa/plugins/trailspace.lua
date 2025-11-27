@@ -1,5 +1,5 @@
 -- Mini.trailspace
-Add { source = 'nvim-mini/mini.trailspace' }
+Add({ source = 'nvim-mini/mini.trailspace' })
 Later(function()
   require('mini.trailspace').setup()
   vim.api.nvim_create_autocmd('BufWritePre', {

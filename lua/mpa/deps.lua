@@ -1,5 +1,5 @@
 vim.pack.add({ 'https://github.com/nvim-mini/mini.deps' }, { confirm = false })
-require('mini.deps').setup {}
+require('mini.deps').setup({})
 
 -- Helper: add one or many plugin specs
 local function add_specs(specs)
@@ -17,7 +17,7 @@ local function add_specs(specs)
     end
   elseif t == 'string' then
     -- Shorthand: "user/repo"
-    MiniDeps.add { source = specs }
+    MiniDeps.add({ source = specs })
   else
     error(('Add(): invalid spec of type %s'):format(t))
   end

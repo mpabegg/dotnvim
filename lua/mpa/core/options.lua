@@ -2,7 +2,7 @@
 -- Basic Options
 -- ============================================================================
 
-local icons = require 'mpa.icons'
+local icons = require('mpa.icons')
 
 -- Leader keys: Space for global leader, comma for local leader
 vim.g.mapleader = ' '
@@ -66,7 +66,7 @@ vim.o.completeopt = 'menu,menuone,noselect'
 
 -- Undo: Enable persistent undo across sessions
 vim.o.undofile = true
-vim.o.undodir = vim.fn.stdpath 'data' .. '/undodir'
+vim.o.undodir = vim.fn.stdpath('data') .. '/undodir'
 
 -- Backup files: Disable backup, writebackup, and swap files
 vim.o.backup = false
@@ -85,9 +85,7 @@ vim.g.netrw_winsize = 25
 vim.o.mouse = 'a'
 
 -- Clipboard: Use system clipboard for yank/delete/put operations
-vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
-end)
+vim.schedule(function() vim.o.clipboard = 'unnamedplus' end)
 
 -- Update timing: Faster updates for better responsiveness
 vim.o.updatetime = 250
@@ -104,12 +102,15 @@ vim.o.autochdir = false
 
 -- Folding
 -- vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:'
-vim.o.fillchars = 'eob: ,fold: ,foldopen:' .. icons.ui.carret_down ..',foldsep: ,foldinner: ,foldclose:'.. icons.ui.carret_right
+vim.o.fillchars = 'eob: ,fold: ,foldopen:'
+  .. icons.ui.carret_down
+  .. ',foldsep: ,foldinner: ,foldclose:'
+  .. icons.ui.carret_right
 
 -- ============================================================================
 -- Diagnostics
 -- ============================================================================
-vim.diagnostic.config {
+vim.diagnostic.config({
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
@@ -118,9 +119,9 @@ vim.diagnostic.config {
       [vim.diagnostic.severity.INFO] = icons.diagnostics.info,
     },
   },
-  virtual_text = true,
+  virtual_text = false,
   update_in_insert = false,
-  underline = true,
+  underline = false,
   severity_sort = true,
   float = {
     focusable = true,
@@ -129,4 +130,4 @@ vim.diagnostic.config {
     header = '',
     prefix = '',
   },
-}
+})

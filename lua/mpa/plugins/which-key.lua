@@ -1,9 +1,9 @@
 -- Which-key
-Add { source = 'https://github.com/folke/which-key.nvim' }
+Add({ source = 'https://github.com/folke/which-key.nvim' })
 Later(function()
-  local wk = require 'which-key'
-  wk.setup { preset = 'classic' }
-  wk.add {
+  local wk = require('which-key')
+  wk.setup({ preset = 'classic' })
+  wk.add({
     { '<leader>f', group = 'find/file' },
     { '<leader>g', group = 'git' },
     { '<leader>s', group = 'search' },
@@ -12,5 +12,5 @@ Later(function()
     { '<leader>h', group = 'help' },
     { '<leader>a', group = 'ai' },
     { '<leader>u', group = 'ui' },
-  }
+  })
 end)

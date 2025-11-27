@@ -1,5 +1,3 @@
 -- Mini.splitjoin
-Add { source = 'nvim-mini/mini.splitjoin' }
-Later(function()
-  require('mini.splitjoin').setup()
-end)
+Add({ source = 'nvim-mini/mini.splitjoin' })
+Later(require('mini.splitjoin').setup)

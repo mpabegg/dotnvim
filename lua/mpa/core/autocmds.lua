@@ -7,9 +7,7 @@ local general = vim.api.nvim_create_augroup('General', { clear = true })
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = general,
   pattern = '*',
-  callback = function()
-    vim.hl.on_yank { higroup = 'IncSearch', timeout = 200 }
-  end,
+  callback = function() vim.hl.on_yank({ higroup = 'IncSearch', timeout = 200 }) end,
   desc = 'Highlight yanked text',
 })
 
@@ -31,9 +29,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 vim.api.nvim_create_autocmd('VimResized', {
   group = general,
   pattern = '*',
-  callback = function()
-    vim.cmd 'tabdo wincmd ='
-  end,
+  callback = function() vim.cmd('tabdo wincmd =') end,
   desc = 'Auto-resize splits',
 })
 
@@ -50,9 +46,6 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Disable auto-comment on newline globally
 vim.api.nvim_create_autocmd('FileType', {
-  callback = function()
-    vim.opt_local.formatoptions:remove { 'c', 'r', 'o' }
-  end,
+  callback = function() vim.opt_local.formatoptions:remove({ 'c', 'r', 'o' }) end,
   desc = 'Disable auto-comment on newline',
 })
-

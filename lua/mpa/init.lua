@@ -1,16 +1,16 @@
 -- ============================================================================
 -- Dependencies
 -- ============================================================================
-require 'mpa.deps'
+require('mpa.deps')
 
 -- ============================================================================
 -- Core Configuration
 -- ============================================================================
-require 'mpa.core.options'
-require 'mpa.core.keymaps'
-require 'mpa.core.autocmds'
+require('mpa.core.options')
+require('mpa.core.keymaps')
+require('mpa.core.autocmds')
 
 -- ============================================================================
 -- Plugins (One file per plugin)
 -- ============================================================================
-require 'mpa.plugins'
+require('mpa.plugins')

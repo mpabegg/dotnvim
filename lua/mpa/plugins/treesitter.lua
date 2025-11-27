@@ -1,20 +1,26 @@
 -- Treesitter
-Add {
-  source = 'nvim-treesitter/nvim-treesitter',
-  hooks = {
-    post_checkout = function()
-      vim.cmd [[TSUpdate]]
-    end,
-  },
-}
-Later(function()
-  require('nvim-treesitter.configs').setup {
-    auto_install = true,
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = false,
+Add({
+  {
+    source = 'nvim-treesitter/nvim-treesitter',
+    hooks = {
+      post_checkout = function() vim.cmd([[TSUpdate]]) end,
     },
-    indent = { enable = true },
-    fold = { enable = true },
-  }
-end)
+  },
+  { source = 'nvim-treesitter/nvim-treesitter-textobjects' },
+})
+Later(
+  function()
+    require('nvim-treesitter.configs').setup({
+      textobjects = {
+        select = { enable = true },
+      },
+      auto_install = true,
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+      },
+      indent = { enable = true },
+      fold = { enable = true },
+    })
+  end
+)

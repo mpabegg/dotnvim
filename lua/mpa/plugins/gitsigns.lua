@@ -1,8 +1,8 @@
-Add {
+Add({
   source = 'lewis6991/gitsigns.nvim',
-}
+})
 Later(function()
-  require('gitsigns').setup {
+  require('gitsigns').setup({
     signs = {
       add = { text = '▎' },
       change = { text = '▎' },
@@ -21,9 +21,7 @@ Later(function()
     on_attach = function(buffer)
       local gs = package.loaded.gitsigns
 
-      local function map(mode, l, r, desc)
-        vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc, silent = true })
-      end
+      local function map(mode, l, r, desc) vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc, silent = true }) end
 
         -- stylua: ignore start
         map("n", "]h", function()
@@ -54,5 +52,5 @@ Later(function()
         map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
         map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
     end,
-  }
+  })
 end)

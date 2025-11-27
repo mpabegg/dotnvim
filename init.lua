@@ -1,1 +1,1 @@
-require 'mpa'
+require('mpa')

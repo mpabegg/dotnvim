@@ -26,16 +26,11 @@ vim.keymap.set('v', 'K', "<CMD>m '<-2<CR>gv=gv", { desc = 'Move text up' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Scroll down' })
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Scroll up' })
 
--- LSP (Core)
-vim.keymap.set('n', 'K', function()
-  vim.lsp.buf.hover()
-end)
-
--- Diagnostics
-vim.keymap.set('n', 'gl', vim.diagnostic.open_float)
-vim.keymap.set('n', '[d', function()
-  vim.diagnostic.jump { count = 1, float = true }
-end)
-vim.keymap.set('n', ']d', function()
-  vim.diagnostic.jump { count = -1, float = true }
-end)
+vim.keymap.set('n', '<leader>w', '<CMD>w<CR>', { desc = 'Save file' })
+vim.keymap.set('n', '<leader>fs', '<CMD>w<CR>', { desc = 'Save file' })
+vim.keymap.set('n', '<S-l>', '<CMD>bnext<CR>', { desc = 'Next buffer' })
+vim.keymap.set('n', '<S-h>', '<CMD>bprevious<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>wv', '<CMD>vsplit<CR>', { desc = 'Split window vertically' })
+vim.keymap.set('n', '<leader>ws', '<CMD>split<CR>', { desc = 'Split window horizontally' })
+vim.keymap.set('n', '<leader>wd', '<CMD>close<CR>', { desc = 'Close current split' })
+vim.keymap.set('n', '<leader>wc', '<CMD>close<CR>', { desc = 'Close current split' })

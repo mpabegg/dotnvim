@@ -1,22 +1,22 @@
 -- LSP
-Add {
+Add({
   source = 'neovim/nvim-lspconfig',
   depends = {
     'williamboman/mason.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     'folke/lazydev.nvim',
   },
-}
+})
 
 Later(function()
-  require('lazydev').setup {
+  require('lazydev').setup({
     library = {
       { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
     },
-  }
+  })
 
   require('mason').setup()
-  require('mason-tool-installer').setup {}
+  require('mason-tool-installer').setup({})
 
   local capabilities = require('blink.cmp').get_lsp_capabilities({}, true)
   local ufo_ok, _ = pcall(require, 'ufo')
@@ -28,112 +28,43 @@ Later(function()
   end
 
   vim.lsp.config('*', { capabilities = capabilities })
-  vim.lsp.config('lua_ls', {
-    settings = {
-      Lua = {
-        diagnostics = {
-          globals = { 'vim', 'Later', 'Add', 'Now' },
-        },
-      },
-    },
-  })
+  vim.lsp.enable({ 'lua_ls', 'ruby_lsp', 'vtsls' })
 
-  -- Helper function to find umbrella project root
-  -- Prioritizes git root, then topmost Gemfile
-  local function find_umbrella_root(fname)
-    local path = vim.fs.dirname(fname)
-
-    -- First, try to find git root (most reliable for umbrella projects)
-    local git_root = vim.fs.find('.git', { path = path, upward = true, type = 'directory' })[1]
-    if git_root then
-      return vim.fs.dirname(git_root)
-    end
-
-    -- Fall back to finding topmost Gemfile by walking up the tree
-    local current = path
-    local topmost_gemfile = nil
-    while current ~= '/' and current ~= '' do
-      local gemfile = vim.fs.joinpath(current, 'Gemfile')
-      if vim.fn.filereadable(gemfile) == 1 then
-        topmost_gemfile = current
+  vim.api.nvim_create_autocmd('LspAttach', {
+    group = vim.api.nvim_create_augroup('LspKeymaps', { clear = true }),
+    callback = function(event)
+      local client = vim.lsp.get_client_by_id(event.data.client_id)
+      if not client then
+        return
       end
-      local parent = vim.fs.dirname(current)
-      if parent == current then
-        break
+
+      local buffer = event.buf
+
+      local map = function(mode, lhs, rhs, opts)
+        vim.keymap.set(mode, lhs, rhs, vim.tbl_deep_extend('keep', opts or {}, { buffer = buffer }))
       end
-      current = parent
-    end
 
-    if topmost_gemfile then
-      return topmost_gemfile
-    end
+      map('n', 'K', vim.lsp.buf.hover, { desc = 'LSP hover' })
+      map('n', 'gl', vim.diagnostic.open_float, { desc = 'Open diagnostic float' })
+      map('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Previous diagnostic' })
+      map('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Next diagnostic' })
 
-    -- Fallback: use CWD if it contains a Gemfile
-    local cwd = vim.fn.getcwd()
-    if vim.fn.filereadable(vim.fs.joinpath(cwd, 'Gemfile')) == 1 then
-      return cwd
-    end
+      map('n', '<localleader>f', vim.lsp.buf.format, { desc = 'LSP Format' })
 
-    -- Fallback to current file's directory
-    return path
-  end
-
-  vim.lsp.config('ruby_lsp', {
-    root_dir = function(bufnr, on_dir)
-      local fname = vim.api.nvim_buf_get_name(bufnr)
-      local root = find_umbrella_root(fname)
-      if root then
-        on_dir(root)
+      -- Snacks LSP pickers (only set if Snacks is available)
+      local snacks_ok, Snacks = pcall(require, 'snacks')
+      if snacks_ok and Snacks then
+        map('n', 'gd', Snacks.picker.lsp_definitions, { desc = 'Goto Definition' })
+        map('n', 'gD', Snacks.picker.lsp_declarations, { desc = 'Goto Declaration' })
+        map('n', 'gr', Snacks.picker.lsp_references, { nowait = true, desc = 'References' })
+        map('n', 'gI', Snacks.picker.lsp_implementations, { desc = 'Goto Implementation' })
+        map('n', 'gy', Snacks.picker.lsp_type_definitions, { desc = 'Goto T[y]pe Definition' })
+        map('n', 'gai', Snacks.picker.lsp_incoming_calls, { desc = 'C[a]lls Incoming' })
+        map('n', 'gao', Snacks.picker.lsp_outgoing_calls, { desc = 'C[a]lls Outgoing' })
+        map('n', '<leader>ss', Snacks.picker.lsp_symbols, { desc = 'LSP Symbols' })
+        map('n', '<leader>sS', Snacks.picker.lsp_workspace_symbols, { desc = 'LSP Workspace Symbols' })
       end
     end,
-    on_new_config = function(new_config, new_root_dir)
-      if vim.fn.filereadable(vim.fs.joinpath(new_root_dir, 'bin', 'rubocop')) == 1 then
-        new_config.init_options = new_config.init_options or {}
-        new_config.init_options.formatter = 'none'
-        new_config.init_options.enabledFeatures = new_config.init_options.enabledFeatures or {}
-      end
-    end,
+    desc = 'Set LSP keymaps on attach',
   })
-
-  -- vtsls (TypeScript/JavaScript LSP) - formatting disabled
-  vim.lsp.config('vtsls', {
-    settings = {
-      vtsls = {
-        experimental = {
-          completion = {
-            enableServerSideFuzzyMatch = true,
-          },
-        },
-      },
-      typescript = {
-        inlayHints = {
-          parameterNames = { enabled = 'all' },
-          variableTypes = { enabled = false },
-          propertyDeclarationTypes = { enabled = true },
-          functionLikeReturnTypes = { enabled = true },
-          enumMemberValues = { enabled = true },
-        },
-      },
-      javascript = {
-        inlayHints = {
-          parameterNames = { enabled = 'all' },
-          variableTypes = { enabled = false },
-          propertyDeclarationTypes = { enabled = true },
-          functionLikeReturnTypes = { enabled = true },
-          enumMemberValues = { enabled = true },
-        },
-      },
-    },
-    init_options = {
-      publishDiagnostics = true,
-    },
-    on_new_config = function(new_config, _)
-      -- Explicitly disable formatting for vtsls
-      new_config.capabilities = new_config.capabilities or {}
-      new_config.capabilities.documentFormattingProvider = false
-      new_config.capabilities.documentRangeFormattingProvider = false
-    end,
-  })
-
-  vim.lsp.enable { 'lua_ls', 'ruby_lsp', 'vtsls' }
 end)
