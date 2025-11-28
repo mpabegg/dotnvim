@@ -28,4 +28,3 @@ require('mpa.plugins.none-ls')
 
 -- Snacks & Tools
 require('mpa.plugins.snacks')
-require('mpa.plugins.noice')
