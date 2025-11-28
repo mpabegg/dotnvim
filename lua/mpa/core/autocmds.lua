@@ -36,7 +36,7 @@ vim.api.nvim_create_autocmd('VimResized', {
 -- Close some filetypes with <q>
 vim.api.nvim_create_autocmd('FileType', {
   group = general,
-  pattern = { 'help', 'qf', 'lspinfo', 'man', 'checkhealth' },
+  pattern = { 'help', 'qf', 'lspinfo', 'man', 'checkhealth', 'netrw' },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
     vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true })
