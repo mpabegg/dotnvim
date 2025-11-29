@@ -1,9 +1,20 @@
 local utils = require('mpa.utils')
-
 utils.auto_format('*.rb')
 
--- Helper function to find umbrella project root
--- Prioritizes git root, then topmost Gemfile
+local ruby_lsp_cmd = function()
+  local cmd = { 'ruby-lsp' }
+  if vim.fn.executable('ruby-lsp') == 1 then
+    local paths = vim.fn.systemlist('which -a ruby-lsp')
+    for _, p in ipairs(paths) do
+      if not string.find(p, 'mason') then
+        cmd = { p }
+        break
+      end
+    end
+  end
+  return cmd
+end
+
 local function find_umbrella_root(arg)
   -- Handle the case where arg might be the filename (if standard lspconfig behavior applies)
   local fname
@@ -57,6 +68,13 @@ local function find_umbrella_root(arg)
   return path
 end
 
+local root_dir = function(bufnr, on_dir)
+  local root = find_umbrella_root(bufnr)
+  if root then
+    on_dir(root)
+  end
+end
+
 return {
   {
     'nvim-treesitter/nvim-treesitter',
@@ -76,32 +94,17 @@ return {
       return utils.deep_extend(opts, {
         servers = {
           ruby_lsp = {
-            root_dir = function(bufnr, on_dir)
-              local root = find_umbrella_root(bufnr)
-              if root then
-                on_dir(root)
+            root_dir = root_dir,
+            cmd = ruby_lsp_cmd(),
+            on_new_config = function(new_config, new_root_dir)
+              if vim.fn.filereadable(vim.fs.joinpath(new_root_dir, 'bin', 'rubocop')) == 1 then
+                new_config.init_options = new_config.init_options or {}
+                new_config.init_options.formatter = 'none'
+                new_config.init_options.enabledFeatures = new_config.init_options.enabledFeatures
+                  or {}
               end
             end,
-            -- on_new_config = function(new_config, new_root_dir)
-            --   if vim.fn.filereadable(vim.fs.joinpath(new_root_dir, 'bin', 'rubocop')) == 1 then
-            --     new_config.init_options = new_config.init_options or {}
-            --     new_config.init_options.formatter = 'none'
-            --     new_config.init_options.enabledFeatures = new_config.init_options.enabledFeatures
-            --       or {}
-            --   end
-            -- end,
           },
-          -- rubocop = {
-          --   root_dir = find_umbrella_root,
-          --   on_new_config = function(new_config, new_root_dir)
-          --     if vim.fn.filereadable(vim.fs.joinpath(new_root_dir, 'bin', 'rubocop')) == 1 then
-          --       new_config.cmd = { vim.fs.joinpath(new_root_dir, 'bin', 'rubocop'), '--lsp' }
-          --     elseif vim.fn.filereadable(vim.fs.joinpath(new_root_dir, 'Gemfile')) == 1 then
-          --       new_config.cmd = { 'bundle', 'exec', 'rubocop', '--lsp' }
-          --     else
-          --     end
-          --   end,
-          -- },
         },
       })
     end,
