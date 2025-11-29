@@ -1,7 +1,3 @@
--- ============================================================================
--- Basic Options
--- ============================================================================
-
 local icons = require('mpa.icons')
 
 -- Leader keys: Space for global leader, comma for local leader
@@ -10,7 +6,7 @@ vim.g.maplocalleader = ','
 
 -- Line numbers: Show absolute line numbers (not relative)
 vim.o.number = true
-vim.o.relativenumber = false
+vim.o.relativenumber = true
 vim.o.numberwidth = 2
 
 -- Indentation: Use 2 spaces for tabs and indentation
@@ -77,7 +73,7 @@ vim.o.swapfile = false
 vim.o.autoread = true
 
 -- Netrw (file explorer): Open in current window, hide banner, set window size
-vim.g.netrw_browse_split = 0
+vim.g.netrw_browse_split = 0 -- vertically splits window
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 
@@ -100,34 +96,4 @@ vim.opt.confirm = true
 -- Directory: Don't automatically change working directory
 vim.o.autochdir = false
 
--- Folding
--- vim.o.fillchars = 'eob: ,fold: ,foldopen:,foldsep: ,foldinner: ,foldclose:'
-vim.o.fillchars = 'eob: ,fold: ,foldopen:'
-  .. icons.ui.carret_down
-  .. ',foldsep: ,foldinner: ,foldclose:'
-  .. icons.ui.carret_right
-
--- ============================================================================
--- Diagnostics
--- ============================================================================
-vim.diagnostic.config({
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = icons.diagnostics.error,
-      [vim.diagnostic.severity.WARN] = icons.diagnostics.warn,
-      [vim.diagnostic.severity.HINT] = icons.diagnostics.hint,
-      [vim.diagnostic.severity.INFO] = icons.diagnostics.info,
-    },
-  },
-  virtual_text = false,
-  update_in_insert = false,
-  underline = false,
-  severity_sort = true,
-  float = {
-    focusable = true,
-    style = 'minimal',
-    source = false,
-    header = '',
-    prefix = '',
-  },
-})
+vim.opt.statuscolumn = [[%!v:lua.Snacks.statuscolumn()]]

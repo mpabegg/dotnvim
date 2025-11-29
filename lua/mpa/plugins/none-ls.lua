@@ -1,11 +1,3 @@
--- Formatting & Linting (none-ls)
-Add({
-  source = 'nvimtools/none-ls.nvim',
-  depends = {
-    'nvim-lua/plenary.nvim',
-    'nvimtools/none-ls-extras.nvim',
-  },
-})
 Later(function()
   local null_ls = require('null-ls')
   local formatting = null_ls.builtins.formatting
@@ -29,20 +21,6 @@ Later(function()
 
   null_ls.setup({
     sources = sources,
-    on_attach = function(client, bufnr)
-      if client:supports_method('textDocument/formatting') then
-        vim.api.nvim_create_autocmd('BufWritePre', {
-          group = vim.api.nvim_create_augroup('NoneLsFormatting', { clear = true }),
-          buffer = bufnr,
-          callback = function()
-            vim.lsp.buf.format({
-              bufnr = bufnr,
-              async = false,
-              filter = function(c) return c.name == 'null-ls' end,
-            })
-          end,
-        })
-      end
-    end,
+    -- Auto-formatting is now handled by mpa.utils.auto_format
   })
 end)

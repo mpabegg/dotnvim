@@ -1,6 +1,3 @@
--- ============================================================================
--- Autocmds
--- ============================================================================
 local general = vim.api.nvim_create_augroup('General', { clear = true })
 
 -- Highlight yanked text
@@ -42,6 +39,16 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.keymap.set('n', 'q', '<cmd>close<cr>', { buffer = event.buf, silent = true })
   end,
   desc = 'Close with q',
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  group = general,
+  pattern = { 'netrw' },
+  callback = function(event)
+    vim.keymap.set('n', '<C-h>', '<C-w>h', { buffer = event.buf, silent = true })
+    vim.keymap.set('n', '<C-l>', '<C-w>l', { buffer = event.buf, silent = true })
+  end,
+  desc = 'Use <C-h> and <C-l> as <C-w>h and <C-w>l in Netrw',
 })
 
 -- Disable auto-comment on newline globally

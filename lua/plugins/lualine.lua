@@ -61,31 +61,24 @@ local function get_attached_clients()
   return string.format('󱐋 %s', client_names_str)
 end
 
-Add({
-  source = 'nvim-lualine/lualine.nvim',
-  depends = {
-    'nvim-tree/nvim-web-devicons',
-    'SmiteshP/nvim-navic',
+return { 'nvim-lualine/lualine.nvim',
+  dependencies = {
+    'nvim-tree/nvim-web-devicons'
   },
-})
-
-Later(function()
-  local navic = require('nvim-navic')
-  vim.lsp.config('*', { on_attach = navic.attach })
-
-  local icons = require('mpa.icons')
+  config = function()
+local icons = require('mpa.icons')
 
   require('lualine').setup({
-    options = {
-      component_separators = { left = '', right = '' },
-      section_separators = { left = '', right = '' },
-      theme = 'auto',
-      globalstatus = true,
-      disabled_filetypes = {
-        statusline = { 'snacks_picker_list' },
-        winbar = { 'snacks_picker_list' },
+      options = {
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
+        theme = 'auto',
+        globalstatus = true,
+        disabled_filetypes = {
+          statusline = { 'snacks_picker_list', 'netrw', 'snacks_layout_box', 'sidekick_terminal' },
+          winbar = { 'snacks_picker_list', 'netrw', 'snacks_layout_box' , 'sidekick_terminal'},
+        },
       },
-    },
     winbar = {
       lualine_a = {},
       lualine_b = {},
@@ -184,4 +177,5 @@ Later(function()
       },
     },
   })
-end)
+  end
+}

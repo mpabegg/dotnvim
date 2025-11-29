@@ -1,20 +1,15 @@
--- LSP
 Add({
   source = 'neovim/nvim-lspconfig',
   depends = {
     'williamboman/mason.nvim',
+    'SmiteshP/nvim-navic',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     'folke/lazydev.nvim',
   },
 })
 
 Later(function()
-  require('lazydev').setup({
-    library = {
-      { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-    },
-  })
-
+  require('lazydev').setup({ library = { { path = '${3rd}/luv/library', words = { 'vim%.uv' } } } })
   require('mason').setup()
   require('mason-tool-installer').setup({})
 
@@ -28,7 +23,7 @@ Later(function()
   end
 
   vim.lsp.config('*', { capabilities = capabilities })
-  vim.lsp.enable({ 'lua_ls', 'ruby_lsp', 'vtsls' })
+  vim.lsp.enable({ 'lua_ls', 'ruby_lsp', 'vtsls', 'elixirls' })
 
   vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('LspKeymaps', { clear = true }),
@@ -40,6 +35,10 @@ Later(function()
 
       local buffer = event.buf
 
+      if client.server_capabilities.documentSymbolProvider then
+        require('nvim-navic').attach(client, buffer)
+      end
+
       local map = function(mode, lhs, rhs, opts)
         vim.keymap.set(mode, lhs, rhs, vim.tbl_deep_extend('keep', opts or {}, { buffer = buffer }))
       end
@@ -49,22 +48,15 @@ Later(function()
       map('n', '[d', function() vim.diagnostic.jump({ count = 1, float = true }) end, { desc = 'Previous diagnostic' })
       map('n', ']d', function() vim.diagnostic.jump({ count = -1, float = true }) end, { desc = 'Next diagnostic' })
 
+      map('n', 'gd', vim.lsp.buf.definition)
+      map('n', 'grr', vim.lsp.buf.references)
+      map('n', 'gra', vim.lsp.buf.code_action)
+      map('n', 'gri', vim.lsp.buf.implementation)
+      map('n', 'grn', vim.lsp.buf.rename)
+      map('n', 'grt', vim.lsp.buf.type_definition)
+      map('n', 'gO', vim.lsp.buf.document_symbol)
       map('n', '<localleader>f', vim.lsp.buf.format, { desc = 'LSP Format' })
-
-      -- Snacks LSP pickers (only set if Snacks is available)
-      local snacks_ok, Snacks = pcall(require, 'snacks')
-      if snacks_ok and Snacks then
-        map('n', 'gd', Snacks.picker.lsp_definitions, { desc = 'Goto Definition' })
-        map('n', 'gD', Snacks.picker.lsp_declarations, { desc = 'Goto Declaration' })
-        map('n', 'gr', Snacks.picker.lsp_references, { nowait = true, desc = 'References' })
-        map('n', 'gI', Snacks.picker.lsp_implementations, { desc = 'Goto Implementation' })
-        map('n', 'gy', Snacks.picker.lsp_type_definitions, { desc = 'Goto T[y]pe Definition' })
-        map('n', 'gai', Snacks.picker.lsp_incoming_calls, { desc = 'C[a]lls Incoming' })
-        map('n', 'gao', Snacks.picker.lsp_outgoing_calls, { desc = 'C[a]lls Outgoing' })
-        map('n', '<leader>ss', Snacks.picker.lsp_symbols, { desc = 'LSP Symbols' })
-        map('n', '<leader>sS', Snacks.picker.lsp_workspace_symbols, { desc = 'LSP Workspace Symbols' })
-      end
+      map('i', '<C-s>', vim.lsp.buf.signature_help)
     end,
-    desc = 'Set LSP keymaps on attach',
   })
 end)
